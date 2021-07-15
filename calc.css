@@ -7,7 +7,7 @@
 body{
    padding: 0;
    margin: 0;
-   background-image: linear-gradient(to right,#eacda3 ,#d6ae7b); 
+   background-color: gray;
 }
 
 .calculator_container{
@@ -20,11 +20,11 @@ body{
 }
 
 .calculator_container > button{
-   cursor: pointer;
+   cursor:pointer;
    border: 1px solid white;
    font-size: 2rem;
    outline: none;
-   background: rgb(38, 148, 124);
+   background: rgb(85, 87, 186);
 }
 
 .calculator_container > button:hover{
@@ -37,7 +37,7 @@ body{
 
 .output_container{
     grid-column: 1 / -1;
-    background-color: rgb(37, 34, 34);
+    background-color: black;
     display: flex;
     align-items: flex-end;
     justify-content: space-around;

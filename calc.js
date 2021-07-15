@@ -13,6 +13,8 @@ class Calculator{
 }
 
 delet() {
+    this.current_operand = this.current_operand.toString().slice(0, -1)
+
 
 }
 
@@ -59,10 +61,34 @@ compute(){
     
 } 
 
+getDisplayNumber(number){
+    const stringNumber = number.toString()
+    const integerDigits = parseFloat(stringNumber.split('.')[0])
+    const decimalDigits = (stringNumber.split('.')[1])
+    let integerDisplay
+    if(isNaN(integerDigits)){
+      integerDisplay = ''  
+    }else{
+       integerDisplay = integerDigits.toLocaleString('en', {
+           maximumFractionDigits: 0 }) 
+    }
+    if(decimalDigits != null){
+      return `${integerDisplay}.${decimalDigits}`  
+    }else{
+       return integerDisplay
+    }
+}
+ 
 updateDisplay(){
-    this.currentOperandandTextElement.innerText = this.current_operand
-    this.prevOperandandTextElement.innerText = this.prev_operand
+    this.currentOperandandTextElement.innerText = 
+    this.getDisplayNumber(this.current_operand)
+    if(this.operation != null){
+        this.prevOperandandTextElement.innerText = 
+        `${this.getDisplayNumber(this.prev_operand)} ${this.operation}`
+    }else{
+        this.prevOperandandTextElement.innerText = ''
 
+    }
  }
 }
 
@@ -73,8 +99,8 @@ updateDisplay(){
 const numberBtn = document.querySelectorAll(".data_number");
 const operationBtn = document.querySelectorAll(".data_operation");
 const equalsBtn = document.querySelector("#data_equals");
-const deleteBtn = document.querySelector(".data_delete");
-const allClearBtn = document.querySelector(".data_all_clear");
+const deleteBtn = document.querySelector("#data_delete");
+const allClearBtn = document.querySelector("#data_all_clear");
 const prevOperandandTextElement = document.querySelector("#data_prev_operand");
 const currentOperandandTextElement = document.querySelector("#data_current_operand");
 const current_operand = document.querySelector(".currentOperand");
@@ -107,4 +133,15 @@ const calculator = new Calculator(prevOperandandTextElement,
         calculator.compute()
         calculator.updateDisplay()
         
+    })
+
+
+    allClearBtn.addEventListener('click', button => {
+        calculator.clear()
+        calculator.updateDisplay()  
+    })
+
+    deleteBtn.addEventListener('click', button => {
+        calculator.delet()
+        calculator.updateDisplay()  
     })
